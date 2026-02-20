@@ -1,0 +1,59 @@
+{# Composant Publication #}
+{# Paramètres attendus:
+   - authorName: nom de l'auteur
+   - authorInitials: initiales pour l'avatar
+   - avatarColor: classe Tailwind pour la couleur de l'avatar (ex: "bg-blue-500")
+   - timeAgo: texte de la date (ex: "Il y a 2 heures")
+   - content: contenu textuel de la publication
+   - tags: tableau de tags avec {name, bgColor}
+   - likesCount: nombre de likes
+   - commentsCount: nombre de commentaires
+#}
+
+<article class="group bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden backdrop-blur-sm">
+    {# En-tête de la carte #}
+    <div class="p-6 flex items-center space-x-4 border-b border-gray-50">
+        <div class="relative">
+            <div class="w-11 h-11 rounded-full {{ avatarColor }} flex items-center justify-center text-white font-bold text-xs shadow-md shadow-blue-500/20 ring-2 ring-white">
+                {{ authorInitials }}
+            </div>
+            <div class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white"></div>
+        </div>
+        <div class="flex-1 min-w-0">
+            <h3 class="font-bold text-gray-900 text-base tracking-tight">{{ authorName }}</h3>
+            <p class="text-xs text-gray-500 font-medium mt-0.5">{{ timeAgo }}</p>
+        </div>
+    </div>
+
+    {# Contenu textuel #}
+    <div class="px-6 py-5">
+        <p class="text-gray-800 leading-relaxed text-[15px] font-normal tracking-wide">
+            {{ content }}
+        </p>
+    </div>
+
+    {# Tags #}
+    <div class="px-6 pb-5 flex flex-wrap gap-2.5">
+        {% for tag in tags %}
+            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-md text-xs font-medium border border-blue-200 cursor-pointer">
+                #{{ tag.name }}
+            </span>
+        {% endfor %}
+    </div>
+
+    {# Barre d'actions avec effets raffinés #}
+    <div class="px-6 py-4 border-t border-gray-50 bg-gray-50/50 flex items-center space-x-8">
+        <button class="group/btn flex items-center space-x-2.5 text-gray-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            <span class="text-sm font-semibold">{{ likesCount }}</span>
+        </button>
+        <button class="group/btn flex items-center space-x-2.5 text-gray-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <span class="text-sm font-semibold">{{ commentsCount }}</span>
+        </button>
+    </div>
+</article>
