@@ -5,7 +5,10 @@ security:
 
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
 
     firewalls:
         dev:
@@ -14,15 +17,17 @@ security:
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
             form_login:
                 login_path: app_login
                 check_path: app_login
+                default_target_path: app_home
                 enable_csrf: true
+                username_parameter: _username
+                password_parameter: _password
             logout:
                 path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
+                target: app_home
 
             # Activate different ways to authenticate:
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -32,8 +37,14 @@ security:
 
     # Note: Only the *first* matching rule is applied
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # Pages publiques (login, register)
+        - { path: ^/(login|register), roles: PUBLIC_ACCESS }
+        # Page d'accueil accessible publiquement
+        - { path: ^/$, roles: PUBLIC_ACCESS }
+        # Logout accessible à tous les utilisateurs authentifiés
+        - { path: ^/logout, roles: IS_AUTHENTICATED }
+        # Le reste nécessite ROLE_USER ou ROLE_ADMIN (pas ROLE_BANNED)
+        - { path: ^/, roles: [ROLE_USER, ROLE_ADMIN] }
 
 when@test:
     security:
