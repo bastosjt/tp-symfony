@@ -35,7 +35,8 @@ class Publication
     /**
      * @var Collection<int, Tag>
      */
-    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'publications')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'publications')]
+    #[ORM\JoinTable(name: 'tag_publication', joinColumns: [new ORM\JoinColumn(name: 'publication_id', referencedColumnName: 'id')], inverseJoinColumns: [new ORM\JoinColumn(name: 'tag_id', referencedColumnName: 'id')])]
     private Collection $tags;
 
     /**

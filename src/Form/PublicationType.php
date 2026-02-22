@@ -33,8 +33,9 @@ class PublicationType extends AbstractType
                 'class' => Tag::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'expanded' => false,
-                'attr' => ['class' => 'w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500'],
+                'expanded' => true,
+                'label' => 'Tags',
+                'choice_attr' => fn () => ['class' => 'sr-only'],
             ])
         ;
     }

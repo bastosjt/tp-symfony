@@ -1,5 +1,25 @@
-{# Composant Publication - Accepte directement une entité Publication #}
-<article class="group bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden backdrop-blur-sm">
+{# Composant Publication - Accepte publication et optionnellement show_actions (pour Mes publications) #}
+<article class="group relative bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden backdrop-blur-sm">
+    {# Boutons d'action CRUD - style pro, couleurs distinctes, icônes claires #}
+    {% if show_actions|default(false) %}
+        <div class="absolute top-3 right-3 flex gap-2 z-10">
+            <a href="{{ path('app_publication_show', { id: publication.id }) }}" title="Voir" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-500 text-white text-sm font-semibold shadow-md shadow-indigo-500/30 hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-200">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                <span class="hidden sm:inline">Voir</span>
+            </a>
+            <a href="{{ path('app_publication_edit', { id: publication.id }) }}" title="Modifier" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500 text-white text-sm font-semibold shadow-md shadow-amber-500/30 hover:bg-amber-600 hover:shadow-lg hover:shadow-amber-500/40 hover:scale-105 transition-all duration-200">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                <span class="hidden sm:inline">Modifier</span>
+            </a>
+            <form method="post" action="{{ path('app_publication_delete', { id: publication.id }) }}" onsubmit="return confirm('Supprimer cette publication ?');" class="inline">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ publication.id) }}">
+                <button type="submit" title="Supprimer" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-red-500 text-white text-sm font-semibold shadow-md shadow-red-500/30 hover:bg-red-600 hover:shadow-lg hover:shadow-red-500/40 hover:scale-105 transition-all duration-200 cursor-pointer">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    <span class="hidden sm:inline">Supprimer</span>
+                </button>
+            </form>
+        </div>
+    {% endif %}
     {# En-tête de la carte #}
     <div class="p-6 flex items-center space-x-4 border-b border-gray-50">
         <div class="relative">
