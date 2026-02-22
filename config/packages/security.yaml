@@ -43,6 +43,8 @@ security:
         - { path: ^/$, roles: PUBLIC_ACCESS }
         # Logout accessible à tous les utilisateurs authentifiés
         - { path: ^/logout, roles: IS_AUTHENTICATED }
+        # Panel admin réservé aux admins
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # Le reste nécessite ROLE_USER ou ROLE_ADMIN (pas ROLE_BANNED)
         - { path: ^/, roles: [ROLE_USER, ROLE_ADMIN] }
 
