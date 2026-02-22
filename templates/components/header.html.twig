@@ -8,7 +8,7 @@
                 </h1>
             </div>
 
-            {% if app.user %}
+            {% if app.user and not is_granted('ROLE_BANNED')%}
                 <nav class="hidden md:flex items-center space-x-10 flex-1 justify-center">
                     <a href="{{ path('app_home') }}" class="relative text-gray-700 hover:text-gray-900 font-medium text-sm tracking-wide transition-all duration-300 group">
                         Accueil
