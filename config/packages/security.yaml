@@ -38,7 +38,7 @@ security:
     # Note: Only the *first* matching rule is applied
     access_control:
         # Pages publiques (login, register)
-        - { path: ^/(login|register), roles: PUBLIC_ACCESS }
+        - { path: ^/(login|register|reset-password), roles: PUBLIC_ACCESS }
         # Page d'accueil accessible publiquement
         - { path: ^/$, roles: PUBLIC_ACCESS }
         # Logout accessible à tous les utilisateurs authentifiés

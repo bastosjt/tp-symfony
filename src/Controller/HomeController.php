@@ -20,13 +20,12 @@ final class HomeController extends AbstractController
     {
         $allPublications = $this->publicationRepository->findAll();
         
-        // Si l'utilisateur n'est pas connecté, limiter à 5 publications aléatoires
         if (!$this->getUser()) {
             shuffle($allPublications);
             $publications = array_slice($allPublications, 0, 5);
             $hasMorePublications = count($allPublications) > 5;
         } else {
-            // Utilisateur connecté : toutes les publications triées par date DESC
+
             $publications = $this->publicationRepository->findBy(
                 [],
                 ['createdAt' => 'DESC']

@@ -55,11 +55,17 @@
                                 >
                             </div>
 
+                            <div class="text-center">
+                                <a href="{{ path('app_forgot_password_request') }}" class="text-sm text-indigo-600 hover:text-indigo-700 font-medium transition-colors">
+                                    Mot de passe oublié ?
+                                </a>
+                            </div>
+
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                             <button 
                                 type="submit" 
-                                class="w-full px-8 py-3 bg-gradient-to-r from-slate-900 via-indigo-900 to-slate-900 text-white font-semibold rounded-full text-sm tracking-wide shadow-lg shadow-indigo-900/25 hover:shadow-xl hover:shadow-indigo-900/35 transition-all duration-300 hover:scale-105"
+                                class="w-full px-8 py-3 bg-linear-to-r from-slate-900 via-indigo-900 to-slate-900 text-white font-semibold rounded-full text-sm tracking-wide shadow-lg shadow-indigo-900/25 hover:shadow-xl hover:shadow-indigo-900/35 transition-all duration-300 hover:scale-105"
                             >
                                 Se connecter
                             </button>
